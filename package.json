@@ -1,0 +1,17 @@
+{
+  "name": "yet-another-event-loop-monitor",
+  "version": "1.0.0",
+  "description": "event-loop-monitor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "precommit": "npm run lint"
+  },
+  "author": "skbysp@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.13.1",
+    "husky": "^0.14.3"
+  }
+}
