@@ -5,14 +5,18 @@
   "types": "index.d.ts",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "precommit": "npm run lint"
   },
   "author": "skbysp@gmail.com",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^8.5.2",
     "eslint": "^4.13.1",
     "husky": "^0.14.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skyitachi/yet-another-event-loop-monitor.git"
   }
 }
