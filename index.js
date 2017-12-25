@@ -100,4 +100,4 @@ class EventLoopMonitor extends EventEmitter {
   }
 }
 
-module.exports = EventLoopMonitor
+exports.EventLoopMonitor = EventLoopMonitor

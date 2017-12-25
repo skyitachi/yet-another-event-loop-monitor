@@ -1,4 +1,8 @@
-/* eslint-disable */
+### introduction
+- Nodejs Event Loop Monitor
+
+#### Example
+```javascript
 const { EventLoopMonitor } = require('./index')
 
 const monitor = new EventLoopMonitor({
@@ -12,3 +16,5 @@ monitor.on('data', function (stats) {
   console.log(stats)
   monitor.stop()
 })
+
+```
