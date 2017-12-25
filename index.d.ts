@@ -8,7 +8,7 @@ declare module 'yet-another-event-loop-monitor' {
     sampleInterval: number
   }
 
-  export class EventloopMonitor extends EventEmitter {
+  export class EventLoopMonitor extends EventEmitter {
     constructor(option: Option)
     start(): void
     stop(): void
