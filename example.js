@@ -7,7 +7,6 @@ const monitor = new EventLoopMonitor({
 
 monitor.start()
 
-
 monitor.on('data', function (stats) {
   console.log(stats)
   monitor.stop()

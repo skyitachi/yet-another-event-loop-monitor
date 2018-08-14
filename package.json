@@ -18,5 +18,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/skyitachi/yet-another-event-loop-monitor.git"
+  },
+  "dependencies": {
+    "debug": "^3.1.0"
   }
 }

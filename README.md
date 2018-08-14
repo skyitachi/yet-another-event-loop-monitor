@@ -1,6 +1,6 @@
 ### introduction
 - Nodejs Event Loop Monitor
-- unit is `microsecond(μs)`
+- unit is `millisecond(ms)`
 #### Example
 ```javascript
 const { EventLoopMonitor } = require('./index')

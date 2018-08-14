@@ -1,5 +1,5 @@
 const EventEmitter = require('events')
-const monitorInterval = 10
+const debug = require('debug')('eventloopmonitor')
 
 class EventLoopMonitor extends EventEmitter {
   /**
@@ -11,13 +11,25 @@ class EventLoopMonitor extends EventEmitter {
     super()
     this.option = Object.assign(
       {
-        sampleInterval: 5000
+        sampleInterval: 5000,
+        samplePoints: 100
       },
       option
     )
+    if (!this.option.samplePoints || this.option.samplePoints > 1000) {
+      throw new Error(`samplePoints is illegal, 1 <= samplePoints <= 1000`)
+    }
     if (this.option.sampleInterval > 10000) {
       throw new Error(`sampleInterval cannot greater than 10000`)
     }
+    this.monitorInterval = Math.floor(this.option.sampleInterval / this.option.samplePoints)
+    if (!this.monitorInterval || Number.isNaN(this.monitorInterval)) {
+      this.monitorInterval = 50
+    }
+    if (this.monitorInterval < 1) {
+      throw new Error(`samplePoints / sampleInterval must > 1`)
+    }
+    debug(`sampleInterval: ${this.option.sampleInterval}, samplePoints: ${this.option.samplePoints}`)
     this._monitorTimer = null
     this._sampleTimer = null
     this._ticks = [[0, 0]]
@@ -34,7 +46,7 @@ class EventLoopMonitor extends EventEmitter {
         const ticks = this._ticks
         ticks.push(process.hrtime(start))
       },
-      monitorInterval
+      this.monitorInterval
     )
     this._sampleTimer = setInterval(
       () => {
@@ -43,7 +55,7 @@ class EventLoopMonitor extends EventEmitter {
         const reducedTicks = {}
         this._lags.length = 0
         for(let i = 1; i < total + 1; i++) {
-          const lag = (ticks[i][0] - ticks[i - 1][0]) * 1e6 - monitorInterval * 1e3 + Math.floor((ticks[i][1] - ticks[i - 1][1]) / 1e3 )
+          const lag = (ticks[i][0] - ticks[i - 1][0]) * 1e6 - this.monitorInterval * 1e3 + Math.floor((ticks[i][1] - ticks[i - 1][1]) / 1e3 )
           if (typeof reducedTicks[lag] === 'undefined') {
             this._lags.push(+lag)
           }
